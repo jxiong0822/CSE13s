@@ -98,14 +98,14 @@ int main(int argc, char *argv[]) {
 
     if (saw_w) {
         printf("pi_wallis() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
-           M_PI - pi_wallis());
+            M_PI - pi_wallis());
         if (saw_s) {
             printf("pi_wallis() terms = %i\n", pi_wallis_factors());
         }
     }
 
     if (saw_n) {
-        for (float i = 0; i < 9.95; i += 0.1) {
+        for (double i = 0; i < 9.95; i += 0.1) {
             double temp_newton = sqrt_newton(i);
             printf("sqrt_newton(%.2f) = %16.15lf, sqrt(%.2f) = %16.15lf, diff = %16.15lf\n", i,
                 temp_newton, i, sqrt(i), sqrt(i) - temp_newton);
