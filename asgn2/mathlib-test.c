@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
     }
 
     if (saw_e) {
-        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, absolute(e() - M_E));
+        printf("e() = %16.15lf, M_E = %16.15lf, diff = %16.15lf\n", e(), M_E, (M_E - e()));
         if (saw_s) {
             printf("e() terms = %i\n", e_terms());
         }
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_b) {
         printf("pi_bbp() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_bbp(), M_PI,
-            absolute(pi_bbp() - M_PI));
+            (M_PI - pi_bbp()));
         if (saw_s) {
             printf("pi_bbp() terms = %i\n", pi_bbp_terms());
         }
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_m) {
         printf("pi_madhava() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_madhava(), M_PI,
-            absolute(M_PI - pi_madhava()));
+            (M_PI - pi_madhava()));
         if (saw_s) {
             printf("pi_madhava() terms = %i\n", pi_madhava_terms());
         }
@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_r) {
         printf("pi_euler() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_euler(), M_PI,
-            absolute(pi_euler() - M_PI));
+            M_PI - pi_euler());
         if (saw_s) {
             printf("pi_euler() terms = %i\n", pi_euler_terms());
         }
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_v) {
         printf("pi_viete() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_viete(), M_PI,
-            absolute(pi_viete() - M_PI));
+            M_PI - pi_viete());
         if (saw_s) {
             printf("pi_viete() terms = %i\n", pi_viete_factors());
         }
@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_w) {
         printf("pi_wallis() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_wallis(), M_PI,
-            absolute(pi_wallis() - M_PI));
+           M_PI - pi_wallis());
         if (saw_s) {
             printf("pi_wallis() terms = %i\n", pi_wallis_factors());
         }
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
         for (float i = 0; i < 9.95; i += 0.1) {
             double temp_newton = sqrt_newton(i);
             printf("sqrt_newton(%.2f) = %16.15lf, sqrt(%.2f) = %16.15lf, diff = %16.15lf\n", i,
-                temp_newton, i, sqrt(i), absolute(temp_newton - sqrt(i)));
+                temp_newton, i, sqrt(i), sqrt(i) - temp_newton);
             if (saw_s) {
                 printf("sqrt_newton() terms = %i\n", sqrt_newton_iters());
             }
