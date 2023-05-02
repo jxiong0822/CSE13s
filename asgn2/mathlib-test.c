@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 
     if (saw_m) {
         printf("pi_madhava() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_madhava(), M_PI,
-            absolute(pi_madhava() - M_PI));
+            absolute(M_PI - pi_madhava()));
         if (saw_s) {
             printf("pi_madhava() terms = %i\n", pi_madhava_terms());
         }
@@ -105,9 +105,10 @@ int main(int argc, char *argv[]) {
     }
 
     if (saw_n) {
-        for (float i = 0; i < 9.995; i += 0.1) {
+        for (float i = 0; i < 9.95; i += 0.1) {
+            double temp_newton = sqrt_newton(i);
             printf("sqrt_newton(%.2f) = %16.15lf, sqrt(%.2f) = %16.15lf, diff = %16.15lf\n", i,
-                sqrt_newton(i), i, sqrt(i), absolute(sqrt_newton(i) - sqrt(i)));
+                temp_newton, i, sqrt(i), absolute(temp_newton - sqrt(i)));
             if (saw_s) {
                 printf("sqrt_newton() terms = %i\n", sqrt_newton_iters());
             }
