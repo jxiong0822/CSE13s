@@ -64,6 +64,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    if (saw_b) {
+        printf("pi_bbp() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_bbp(), M_PI,
+            absolute(pi_bbp() - M_PI));
+        if (saw_s) {
+            printf("pi_bbp() terms = %i\n", pi_bbp_terms());
+        }
+    }
+
     if (saw_m) {
         printf("pi_madhava() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_madhava(), M_PI,
             absolute(pi_madhava() - M_PI));
@@ -77,14 +85,6 @@ int main(int argc, char *argv[]) {
             absolute(pi_euler() - M_PI));
         if (saw_s) {
             printf("pi_euler() terms = %i\n", pi_euler_terms());
-        }
-    }
-
-    if (saw_b) {
-        printf("pi_bbp() = %16.15lf, M_PI = %16.15lf, diff = %16.15lf\n", pi_bbp(), M_PI,
-            absolute(pi_bbp() - M_PI));
-        if (saw_s) {
-            printf("pi_bbp() terms = %i\n", pi_bbp_terms());
         }
     }
 
