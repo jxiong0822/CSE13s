@@ -1,4 +1,4 @@
-#include "stats.h"
+#include "quick.h"
 
 #include <stdint.h>
 #include <stdio.h>

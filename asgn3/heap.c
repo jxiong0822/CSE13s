@@ -1,4 +1,4 @@
-#include "stats.h"
+#include "heap.h"
 
 #include <math.h>
 #include <stdbool.h>
