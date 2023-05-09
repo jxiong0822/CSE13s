@@ -155,8 +155,9 @@ int main(int argc, char *argv[]) {
             }
             printf("%13" PRIu32, unsorted_temp[i]);
         }
-        printf("\n");
-
+        if (elems_to_print != 0) {
+            printf("\n");
+        }
         //reset temp array
         for (int i = 0; i < arr_size; i++) {
             unsorted_temp[i] = unsorted[i];
@@ -175,7 +176,9 @@ int main(int argc, char *argv[]) {
             }
             printf("%13" PRIu32, unsorted_temp[i]);
         }
-        printf("\n");
+        if (elems_to_print != 0) {
+            printf("\n");
+        }
 
         //reset temp array
         for (int i = 0; i < arr_size; i++) {
@@ -195,7 +198,9 @@ int main(int argc, char *argv[]) {
             }
             printf("%13" PRIu32, unsorted_temp[i]);
         }
-        printf("\n");
+        if (elems_to_print != 0) {
+            printf("\n");
+        }
 
         //reset temp array
         for (int i = 0; i < arr_size; i++) {
@@ -216,7 +221,9 @@ int main(int argc, char *argv[]) {
             }
             printf("%13" PRIu32, unsorted_temp[i]);
         }
-        printf("\n");
+        if (elems_to_print != 0) {
+            printf("\n");
+        }
 
         //reset temp array
         for (int i = 0; i < arr_size; i++) {
@@ -237,7 +244,9 @@ int main(int argc, char *argv[]) {
             }
             printf("%13" PRIu32, unsorted_temp[i]);
         }
-        printf("\n");
+        if (elems_to_print != 0) {
+            printf("\n");
+        }
     }
 
     //freeing used memory
