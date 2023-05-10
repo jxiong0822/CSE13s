@@ -1,5 +1,6 @@
-#include "gaps.h"
 #include "shell.h"
+
+#include "gaps.h"
 
 #include <stdint.h>
 #include <stdio.h>
