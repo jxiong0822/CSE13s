@@ -47,7 +47,8 @@ void path_add(Path *p, uint32_t val, const Graph *g) {
     }
     stack_push(p->vertices, val);
 }
-
+//Path remove may have an issue
+/*
 uint32_t path_remove(Path *p, const Graph *g) {
     if (stack_size(p->vertices) >= 2) {
         uint32_t popped;
@@ -62,6 +63,23 @@ uint32_t path_remove(Path *p, const Graph *g) {
         } else {
             p->total_weight = 0;
         }
+        return popped;
+    } else {
+        p->total_weight = 0;
+        return 0;
+    }
+}
+*/
+uint32_t path_remove(Path *p, const Graph *g) {
+    if (stack_size(p->vertices) >= 3) {
+        uint32_t popped;
+        stack_pop(p->vertices, &popped);
+        
+            uint32_t val;
+            uint32_t prev_vertex = stack_peek(p->vertices, &val);
+
+            uint32_t dist = graph_get_weight(g, prev_vertex, popped);
+            p->total_weight -= dist;
         return popped;
     } else {
         p->total_weight = 0;
