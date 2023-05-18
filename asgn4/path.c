@@ -35,7 +35,7 @@ uint32_t path_vertices(const Path *p) {
 }
 
 uint32_t path_distance(const Path *p) {
-    return (p->total_weight);
+    return p->total_weight;
 }
 
 void path_add(Path *p, uint32_t val, const Graph *g) {
@@ -64,7 +64,7 @@ uint32_t path_remove(Path *p, const Graph *g) {
         }
         return popped;
     } else {
-    	p->total_weight = 0;
+        p->total_weight = 0;
         return 0;
     }
 }

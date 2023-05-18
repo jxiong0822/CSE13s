@@ -51,7 +51,7 @@ uint32_t graph_vertices(const Graph *g) {
 }
 */
 uint32_t graph_vertices(const Graph *g) {
-	return g->vertices;
+    return g->vertices;
 }
 
 void graph_add_vertex(Graph *g, const char *name, uint32_t v) {

@@ -68,7 +68,7 @@ void graph_test(void) {
 
     graph_visit_vertex(g, 1);
     assert(graph_visited(g, 1) == true);
-	
+
     //graph_print(g);
 
     //printf("%u\n",numvert);
@@ -92,23 +92,29 @@ void path_test(void) {
     path_add(p, 0, g);
     path_add(p, 1, g);
 
+    assert(path_vertices(p) == 2);
     assert(path_distance(p) == 1000);
 
     path_add(p, 2, g);
-
+    assert(path_vertices(p) == 3);
     assert(path_distance(p) == 1200);
-	//remove jason
+    //remove jason
     path_remove(p, g);
 
+    assert(path_vertices(p) == 2);
     assert(path_distance(p) == 1000);
     //remove bob
+
     path_remove(p, g);
-    
-    printf("%u\n", path_distance(p));
+
+    assert(path_vertices(p) == 1);
+    assert(path_distance(p) == 0);
+
     //remove joe
     path_remove(p, g);
-    
-    printf("%u\n", path_distance(p));
+
+    assert(path_vertices(p) == 1);
+    assert(path_distance(p) == 0);
 
     path_free(&p);
 }

@@ -21,15 +21,14 @@ debug:   CFLAGS=-Wall -Wextra -Wstrict-prototypes -Werror -pedantic -g
 release: CFLAGS=-Wall -Wextra -Wstrict-prototypes -Werror -pedantic
 LDFLAGS=-lm
 
-EXECBIN=tsp
+EXECBIN=stack_test
 #EXECBIN = stack_test
 
 OBJS=\
     graph.o \
     path.o \
     stack.o \
-    tsp.o \
-#    stack_test.o \
+    stack_test.o \
 #    tsp.o \
 #    stack_test.o \
 
