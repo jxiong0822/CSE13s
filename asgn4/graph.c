@@ -39,7 +39,7 @@ void graph_free(Graph **gp) {
     free(g);
     *gp = NULL;
 }
-
+/*
 uint32_t graph_vertices(const Graph *g) {
     uint32_t numVertices = 0;
     for (uint32_t i = 0; i < g->vertices; i += 1) {
@@ -48,6 +48,10 @@ uint32_t graph_vertices(const Graph *g) {
         }
     }
     return numVertices;
+}
+*/
+uint32_t graph_vertices(const Graph *g) {
+	return g->vertices;
 }
 
 void graph_add_vertex(Graph *g, const char *name, uint32_t v) {

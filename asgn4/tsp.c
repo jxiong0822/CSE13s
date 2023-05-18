@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-uint32_t num_of_vertices;
+//uint32_t num_of_vertices;
 
 Graph *make_graph_from_file(FILE *filename, bool directed) {
 
@@ -32,7 +32,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
         exit(-1);
     }
     Graph *g = graph_create(numVertices, directed);
-    num_of_vertices = numVertices;
+    //num_of_vertices = numVertices;
     //printf("numVertices = %u\n", numVertices);
     //printf("num of vertices were successfully read\n");
 
@@ -115,7 +115,7 @@ void dfs(Graph *g, uint32_t start, Path *p, FILE *outputFile, Path **validPaths,
     graph_visit_vertex(g, start);
     path_add(p, start, g);
 
-    if (path_vertices(p) == num_of_vertices) {
+    if (path_vertices(p) == graph_vertices(g)) {
         if (graph_get_weight(g, start, START_VERTEX) != 0) {
             path_add(p, 0, g);
             printf("Path generated with %d vertices requiring distance %d.\n.", path_vertices(p),
@@ -170,11 +170,11 @@ int main(int argc, char *argv[]) {
     //uint32_t numVertices;
     Graph *g = make_graph_from_file(inputFile, directed);
     //printf("after graph from file\n");
-    Path *p = path_create(num_of_vertices);
+    Path *p = path_create(graph_vertices(g));
     //printf("Number of vertices = %u\n", num_of_vertices);
-    Path **validPaths = malloc(num_of_vertices * sizeof(Path *));
-    for (uint32_t i = 0; i < num_of_vertices; i++) {
-        validPaths[i] = path_create(num_of_vertices);
+    Path **validPaths = malloc(graph_vertices(g) * sizeof(Path *));
+    for (uint32_t i = 0; i < graph_vertices(g); i++) {
+        validPaths[i] = path_create(graph_vertices(g));
     }
     uint32_t numValidPaths = 0;
 
@@ -187,7 +187,7 @@ int main(int argc, char *argv[]) {
     }
 
     uint32_t current_min = UINT32_MAX;
-    Path *current_min_path = path_create(num_of_vertices);
+    Path *current_min_path = path_create(graph_vertices(g));
 
     printf("number of valid paths: %u\n", numValidPaths);
     for (uint32_t i = 0; i < numValidPaths; i += 1) {
@@ -202,7 +202,7 @@ int main(int argc, char *argv[]) {
     path_print(current_min_path, outputFile, g);
 
     // Free memory for each Path in the validPaths array
-    for (uint32_t i = 0; i < num_of_vertices; i++) {
+    for (uint32_t i = 0; i < graph_vertices(g); i++) {
         path_free(&validPaths[i]);
     }
 
