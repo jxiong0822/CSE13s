@@ -99,7 +99,8 @@ void graph_print(const Graph *g) {
         for (uint32_t j = 0; j < g->vertices; j++) {
             uint32_t weight = g->weights[i][j];
             if (weight != 0) {
-                printf("Weight to vertex %u: %u\n", j, weight);
+            	const char* connectedname = graph_get_vertex_name(g,j);
+                printf("Weight to vertex %u (%s): %u\n", j, connectedname, weight);
             }
         }
 

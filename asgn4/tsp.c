@@ -10,133 +10,104 @@
 #include <stdlib.h>
 #include <string.h>
 
-//uint32_t num_of_vertices;
 
 Graph *make_graph_from_file(FILE *filename, bool directed) {
 
-    //printf("trying to open file\n");
+  // printf("trying to open file\n");
 
-    FILE *fp = filename;
+  FILE *fp = filename;
 
-    if (fp == NULL) {
-        fprintf(stderr, "file opened is NULL, stopping program");
-        exit(-1);
+  if (fp == NULL) {
+    fprintf(stderr, "file opened is NULL, stopping program");
+    exit(-1);
+  }
+
+  // printf("file was opened successfully \n");
+
+  // reading number of vertices
+  uint32_t numVertices;
+  if (fscanf(fp, "%u\n", &numVertices) != 1) {
+    fprintf(stderr, "issue with number of vertices line, stopping program");
+    exit(-1);
+  }
+  Graph *g = graph_create(numVertices, directed);
+
+  // printf("numVertices = %u\n", numVertices);
+  // printf("num of vertices were successfully read\n");
+
+  // reading and adding vertices
+  for (uint32_t i = 0; i < numVertices; i += 1) {
+    char name[99];
+    if (fgets(name, sizeof(name), fp) == NULL) {
+      fprintf(stderr, "issue while reading a vertex, stopping program");
+      exit(-1);
     }
+    name[strcspn(name, "\n")] = '\0';
+    graph_add_vertex(g, name, i);
 
-    //printf("file was opened successfully \n");
+    // printf("Vertex added = %s\n", name);
+  }
 
-    //reading number of vertices
-    uint32_t numVertices;
-    if (fscanf(fp, "%u\n", &numVertices) != 1) {
-        fprintf(stderr, "issue with number of vertices line, stopping program");
-        exit(-1);
-    }
-    Graph *g = graph_create(numVertices, directed);
-    //num_of_vertices = numVertices;
-    //printf("numVertices = %u\n", numVertices);
-    //printf("num of vertices were successfully read\n");
+  // printf("vertices were successfully read\n");
 
-    //reading and adding vertices
-    for (uint32_t i = 0; i < numVertices; i += 1) {
-        char name[99];
-        if (fgets(name, sizeof(name), fp) == NULL) {
-            fprintf(stderr, "issue while reading a vertex, stopping program");
-            exit(-1);
-        }
-        name[strcspn(name, "\n")] = '\0';
-        graph_add_vertex(g, name, i);
+  // reading number of edges
+  uint32_t numEdges;
+  if (fscanf(fp, "%u\n", &numEdges) != 1) {
+    fprintf(stderr, "issue with number of edges line, stopping program");
+    printf("numedges was found to be %u\n", numEdges);
+    exit(-1);
+  }
 
-        //printf("Vertex added = %s\n", name);
-    }
+  // printf("num of edges were successfully read\n");
 
-    //printf("vertices were successfully read\n");
-
-    //reading number of edges
-    uint32_t numEdges;
-    if (fscanf(fp, "%u\n", &numEdges) != 1) {
-        fprintf(stderr, "issue with number of edges line, stopping program");
-        printf("numedges was found to be %u\n", numEdges);
-        exit(-1);
-    }
-
-    //printf("num of edges were successfully read\n");
-
-    //reading and adding edges
-    for (uint32_t i = 0; i < numEdges; i += 1) {
-        uint32_t start, end, weight;
-        if (fscanf(fp, "%u %u %u\n", &start, &end, &weight) == 3) {
-            graph_add_edge(g, start, end, weight);
-        } else {
-            fprintf(stderr, "issue while reading a edge, stopping program");
-            exit(-1);
-        }
-    }
-
-    //printf("edges were successfully read\n");
-    //graph_print(g);
-    return g;
-}
-/*
-void dfs(uint32_t vertex, Graph *g, Path *p, FILE *outputFile, Path **validPaths, uint32_t *numValidPaths) {
-	graph_visit_vertex(g, vertex);
-	path_add(p, vertex, g);
-	
-	if (path_vertices(p) == num_of_vertices) {
-		//only prints the path if a route home is avaliable
-		if (graph_get_weight(g, vertex, START_VERTEX) != 0) {
-			path_add(p, START_VERTEX, g);
-			//path_print(p, outputFile, g);
-			path_copy(validPaths[*numValidPaths], p);
-			
-			
-			//path_print(validPaths[*numValidPaths], outputFile, g);
-			//fprintf(outputFile, "\n");
-			
-			(*numValidPaths) += 1;
-			
-			//printf("Path distance %u\n",path_distance(p));
-			return;
-		}
-	} else {
-	
-		for (uint32_t i = 0; i < graph_vertices(g); i += 1) {
-			if (graph_get_weight(g, vertex, i) != 0 && !graph_visited(g, i)) {
-				dfs(i, g, p, outputFile, validPaths, numValidPaths);
-			}
-		}
-	}
-	uint32_t v = path_remove(p, g);
-	graph_unvisit_vertex(g, v);
-	//path_remove(p, g);
-}
-*/
-void dfs(Graph *g, uint32_t start, Path *p, FILE *outputFile, Path **validPaths,
-    uint32_t *numValidPaths) {
-    graph_visit_vertex(g, start);
-    path_add(p, start, g);
-
-    if (path_vertices(p) == graph_vertices(g)) {
-        if (graph_get_weight(g, start, START_VERTEX) != 0) {
-            path_add(p, 0, g);
-            printf("Path generated with %d vertices requiring distance %d.\n.", path_vertices(p),
-                path_distance(p));
-            path_copy(validPaths[*numValidPaths], p);
-            (*numValidPaths) += 1;
-            printf("\n");
-            return;
-        }
+  // reading and adding edges
+  for (uint32_t i = 0; i < numEdges; i += 1) {
+    uint32_t start, end, weight;
+    if (fscanf(fp, "%u %u %u\n", &start, &end, &weight) == 3) {
+      graph_add_edge(g, start, end, weight);
     } else {
-        // Run DFS on unvisited, adjacent nodes.
-        for (uint32_t i = 0; i < graph_vertices(g); i++) {
-            uint32_t weight = graph_get_weight(g, start, i);
-            if (weight && !graph_visited(g, i)) {
-                dfs(g, i, p, outputFile, validPaths, numValidPaths);
-            }
-        }
+      fprintf(stderr, "issue while reading a edge, stopping program");
+      exit(-1);
     }
+  }
 
-    uint32_t v = path_remove(p, g);
-    graph_unvisit_vertex(g, v);
+  // printf("edges were successfully read\n");
+  //graph_print(g);
+  return g;
+}
+
+void dfs(uint32_t vertex, Graph *g, Path *p, FILE *outputFile) {
+  graph_visit_vertex(g, vertex);
+  path_add(p, vertex, g);
+  
+  if (path_vertices(p) == graph_vertices(g)) {
+    //path_add(p, 0, g);
+    path_print(p, outputFile, g);
+    fprintf(outputFile, "Path distance %u\n", path_distance(p));
+    printf("Path found and completed\n\n\n");
+    return;
+  } else {
+  //for all of n's edges that have a connection
+  	/*
+  	 for (uint32_t i = 0; i < graph_vertices(g); i += 1) {
+  	 	if (graph_get_weight(g, vertex, i) && !graph_visited(g,i)) {
+  	 		const char* vertexName = graph_get_vertex_name(g,i);
+  	 		const char* curvertexName = graph_get_vertex_name(g,vertex);
+  	 		printf("%s is connected to : %s\n", curvertexName, vertexName);
+  	 	}
+  	 }
+  	*/
+	  for (uint32_t i = 0; i < graph_vertices(g); i += 1) {
+	  	if (graph_get_weight(g, vertex, i) && !graph_visited(g,i)) {
+	  		const char* vertexName = graph_get_vertex_name(g,i);
+  	 		printf("Vertex is jumping to : %s\n", vertexName);
+	  		dfs(i, g, p, outputFile);
+	  	}
+	  }
+  }
+  
+  path_remove(p, g);
+  graph_unvisit_vertex(g, vertex);
 }
 
 int main(int argc, char *argv[]) {
@@ -154,7 +125,7 @@ int main(int argc, char *argv[]) {
 
         case 'o':
             printf("Output file: \"%s\"\n", optarg);
-            outputFile = fopen(optarg, "a+");
+            outputFile = fopen(optarg, "w");
             break;
         case 'd':
             directed = true;
@@ -165,42 +136,43 @@ int main(int argc, char *argv[]) {
         default: printf("put a help here");
         }
     }
-    //printf("before graph from file\n");
-    //making graph from input file
-    //uint32_t numVertices;
+    // printf("before graph from file\n");
+    // making graph from input file
+    // uint32_t numVertices;
     Graph *g = make_graph_from_file(inputFile, directed);
-    //printf("after graph from file\n");
+    // printf("after graph from file\n");
     Path *p = path_create(graph_vertices(g));
-    //printf("Number of vertices = %u\n", num_of_vertices);
+    //printf("Number of vertices = %u\n", path_vertices(p));
+    //printf("Number of vertices of full graph = %u\n", graph_vertices(g));
     Path **validPaths = malloc(graph_vertices(g) * sizeof(Path *));
     for (uint32_t i = 0; i < graph_vertices(g); i++) {
         validPaths[i] = path_create(graph_vertices(g));
     }
-    uint32_t numValidPaths = 0;
+    //uint32_t numValidPaths = 0;
 
-    dfs(g, START_VERTEX, p, outputFile, validPaths, &numValidPaths);
+    dfs(START_VERTEX, g, p, outputFile);
 
-    //iterate through array of validPaths to find one of least length
+    // iterate through array of validPaths to find one of least length
 
-    if (numValidPaths == 0) {
-        printf("No valid paths found.\n");
-    }
-
-    uint32_t current_min = UINT32_MAX;
+    //if (numValidPaths == 0) {
+    //    printf("No valid paths found.\n");
+    //}
+    
+    /*
+    uint32_t current_min = 500;
     Path *current_min_path = path_create(graph_vertices(g));
 
-    printf("number of valid paths: %u\n", numValidPaths);
-    for (uint32_t i = 0; i < numValidPaths; i += 1) {
-        if (path_distance(validPaths[i]) < current_min) {
-            current_min = path_distance(validPaths[i]);
+    for (uint32_t i = 0; i < numValidPaths; i++) {
+        if (path_distance(validPaths[i]) <= current_min) {
             path_copy(current_min_path, validPaths[i]);
-            printf("current min is : %u\n", path_distance(current_min_path));
         }
     }
-    //prints out minimum path found
-    printf("%u\n", path_distance(current_min_path));
-    path_print(current_min_path, outputFile, g);
+    // prints out minimum path found
 
+    path_print(current_min_path, outputFile, g);
+    
+    */
+    
     // Free memory for each Path in the validPaths array
     for (uint32_t i = 0; i < graph_vertices(g); i++) {
         path_free(&validPaths[i]);
@@ -208,7 +180,7 @@ int main(int argc, char *argv[]) {
 
     // Free the validPaths array
     free(validPaths);
-    //closing files if necessary
+    // closing files if necessary
     if (inputFile != stdin) {
         fclose(inputFile);
     }
