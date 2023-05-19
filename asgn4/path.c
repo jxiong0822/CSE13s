@@ -143,7 +143,8 @@ void path_print(const Path *p, FILE *outfile, const Graph *g) {
     }
 
     //stack_copy(p->vertices, originalstack);
-
+    printf("Alissa starts at:\n");
+     printf("Total Distance: %d\n", path_distance(p));
     stack_free(&tempstack);
     stack_free(&originalstack);
 }

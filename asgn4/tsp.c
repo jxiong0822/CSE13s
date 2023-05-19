@@ -145,10 +145,7 @@ int main(int argc, char *argv[]) {
     if (min == UINT32_MAX) {
         printf("No path found! Alissa is lost!\n");
     } else {
-        printf("Alissa starts at:\n");
-
         path_add(min_p, START_VERTEX, g);
-        printf("Total Distance: %d\n", path_distance(min_p));
         path_print(min_p, outputFile, g);
     }
     // closing files if necessary
