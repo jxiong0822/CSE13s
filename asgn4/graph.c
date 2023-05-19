@@ -62,11 +62,11 @@ void graph_add_vertex(Graph *g, const char *name, uint32_t v) {
 }
 
 const char *graph_get_vertex_name(const Graph *g, uint32_t v) {
-    return (g->names[v]);
+    return g->names[v];
 }
 
 char **graph_get_names(const Graph *g) {
-    return (g->names);
+    return g->names;
 }
 
 void graph_add_edge(Graph *g, uint32_t start, uint32_t end, uint32_t weight) {
@@ -78,7 +78,7 @@ void graph_add_edge(Graph *g, uint32_t start, uint32_t end, uint32_t weight) {
 }
 
 uint32_t graph_get_weight(const Graph *g, uint32_t start, uint32_t end) {
-    return (g->weights[start][end]);
+    return g->weights[start][end];
 }
 
 void graph_visit_vertex(const Graph *g, uint32_t v) {
@@ -90,7 +90,7 @@ void graph_unvisit_vertex(Graph *g, uint32_t v) {
 }
 
 bool graph_visited(Graph *g, uint32_t v) {
-    return (g->visited[v]);
+    return g->visited[v];
 }
 
 void graph_print(const Graph *g) {
@@ -99,7 +99,7 @@ void graph_print(const Graph *g) {
         for (uint32_t j = 0; j < g->vertices; j++) {
             uint32_t weight = g->weights[i][j];
             if (weight != 0) {
-            	const char* connectedname = graph_get_vertex_name(g,j);
+                const char *connectedname = graph_get_vertex_name(g, j);
                 printf("Weight to vertex %u (%s): %u\n", j, connectedname, weight);
             }
         }

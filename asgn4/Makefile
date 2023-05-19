@@ -30,6 +30,11 @@ OBJS=\
     stack.o \
     tsp.o \
 #    stack_test.o \
+#    tsp.o \
+#    stack_test.o \
+#    tsp.o \
+#    stack_test.o \
+
 
 .PHONY: all debug release clean
 

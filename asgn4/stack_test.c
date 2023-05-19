@@ -76,6 +76,7 @@ void graph_test(void) {
 }
 
 void path_test(void) {
+
     Graph *g = graph_create(10, false);
     graph_add_vertex(g, "Joe's nutsack massage", 0);
     graph_add_vertex(g, "Bob's bbq", 1);
@@ -98,11 +99,19 @@ void path_test(void) {
     path_add(p, 2, g);
     assert(path_vertices(p) == 3);
     assert(path_distance(p) == 1200);
+
+    FILE *outputFile = stdout;
+    printf("printing path :\n");
+    path_print(p, outputFile, g);
+
     //remove jason
     path_remove(p, g);
 
     assert(path_vertices(p) == 2);
     assert(path_distance(p) == 1000);
+
+    printf("printing path :\n");
+    path_print(p, outputFile, g);
     //remove bob
 
     path_remove(p, g);
@@ -110,11 +119,16 @@ void path_test(void) {
     assert(path_vertices(p) == 1);
     assert(path_distance(p) == 0);
 
+    printf("printing path :\n");
+    path_print(p, outputFile, g);
     //remove joe
     path_remove(p, g);
 
-    assert(path_vertices(p) == 1);
+    assert(path_vertices(p) == 0);
     assert(path_distance(p) == 0);
+
+    printf("printing path :\n");
+    path_print(p, outputFile, g);
 
     path_free(&p);
 }
