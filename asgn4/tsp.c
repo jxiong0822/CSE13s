@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
         printf("Alissa starts at:\n");
 
         path_add(min_p, START_VERTEX, g);
-        printf("Total Distance: %u", path_distance(min_p));
+        printf("Total Distance: %d\n", path_distance(min_p));
         path_print(min_p, outputFile, g);
     }
     // closing files if necessary
