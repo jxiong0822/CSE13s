@@ -17,7 +17,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
     FILE *fp = filename;
 
     if (fp == NULL) {
-        fprintf(stderr, "file opened is NULL, stopping program");
+        fprintf(stderr, "file opened is NULL, stopping program\n");
         exit(-1);
     }
 
@@ -26,7 +26,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
     // reading number of vertices
     uint32_t numVertices;
     if (fscanf(fp, "%u\n", &numVertices) != 1) {
-        fprintf(stderr, "issue with number of vertices line, stopping program");
+        fprintf(stderr, "issue with number of vertices line, stopping program\n");
         exit(-1);
     }
     Graph *g = graph_create(numVertices, directed);
@@ -38,7 +38,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
     for (uint32_t i = 0; i < numVertices; i += 1) {
         char name[99];
         if (fgets(name, sizeof(name), fp) == NULL) {
-            fprintf(stderr, "issue while reading a vertex, stopping program");
+            fprintf(stderr, "issue while reading a vertex, stopping program\n");
             exit(-1);
         }
         name[strcspn(name, "\n")] = '\0';
@@ -52,7 +52,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
     // reading number of edges
     uint32_t numEdges;
     if (fscanf(fp, "%u\n", &numEdges) != 1) {
-        fprintf(stderr, "issue with number of edges line, stopping program");
+        fprintf(stderr, "issue with number of edges line, stopping program\n");
         printf("numedges was found to be %u\n", numEdges);
         exit(-1);
     }
@@ -65,7 +65,7 @@ Graph *make_graph_from_file(FILE *filename, bool directed) {
         if (fscanf(fp, "%u %u %u\n", &start, &end, &weight) == 3) {
             graph_add_edge(g, start, end, weight);
         } else {
-            fprintf(stderr, "issue while reading a edge, stopping program");
+            fprintf(stderr, "issue while reading a edge, stopping program\n");
             exit(-1);
         }
     }
@@ -124,26 +124,28 @@ int main(int argc, char *argv[]) {
             //printf("graph is now directed\n");
             break;
         case 'h':
-            printf("Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
-                   "the cities and edges\n             of a graph. If not specified, the default "
-                   "input should be\n             set as stdin.\n\n-o outfile   Specify the output "
-                   "file path to print to. If not specified,\n             the default output "
-                   "should be set as stdout.\n\n-d           Specifies the graph to be "
-                   "directed.\n\n-h           Prints out a help message describing the purpose of "
-                   "the\n             graph and the command-line options it accepts, exiting the\n "
-                   "            program afterwards.\n");
+            fprintf(stderr,
+                "Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
+                "the cities and edges\n             of a graph. If not specified, the default "
+                "input should be\n             set as stdin.\n\n-o outfile   Specify the output "
+                "file path to print to. If not specified,\n             the default output "
+                "should be set as stdout.\n\n-d           Specifies the graph to be "
+                "directed.\n\n-h           Prints out a help message describing the purpose of "
+                "the\n             graph and the command-line options it accepts, exiting the\n "
+                "            program afterwards.\n");
             exit(-1);
             break;
 
         default:
-            printf("Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
-                   "the cities and edges\n             of a graph. If not specified, the default "
-                   "input should be\n             set as stdin.\n\n\n-o outfile   Specify the "
-                   "output file path to print to. If not specified,\n             the default "
-                   "output should be set as stdout.\n-d           Specifies the graph to be "
-                   "directed.\n\n-h           Prints out a help message describing the purpose of "
-                   "the\n             graph and the command-line options it accepts, exiting the\n "
-                   "            program afterwards.\n");
+            fprintf(stderr,
+                "Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
+                "the cities and edges\n             of a graph. If not specified, the default "
+                "input should be\n             set as stdin.\n\n\n-o outfile   Specify the "
+                "output file path to print to. If not specified,\n             the default "
+                "output should be set as stdout.\n-d           Specifies the graph to be "
+                "directed.\n\n-h           Prints out a help message describing the purpose of "
+                "the\n             graph and the command-line options it accepts, exiting the\n "
+                "            program afterwards.\n");
             exit(-1);
         }
     }
