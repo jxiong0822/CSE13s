@@ -17,7 +17,7 @@
 
 
 CC=clang
-debug:   CFLAGS=-Wall -Wextra -Wstrict-prototypes -Werror -pedantic -g
+debug:   CFLAGS=-Wall -Wextra -Wstrict-prototypes -Werror -pedantic -g -gdwarf-4
 release: CFLAGS=-Wall -Wextra -Wstrict-prototypes -Werror -pedantic
 LDFLAGS=-lm
 

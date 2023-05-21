@@ -127,7 +127,7 @@ void path_print(const Path *p, FILE *outfile, const Graph *g) {
 
     stack_copy(originalstack, p->vertices);
     printf("Alissa starts at:\n");
-    
+
     uint32_t vertex;
     while (!stack_empty(originalstack)) {
         stack_pop(originalstack, &vertex);

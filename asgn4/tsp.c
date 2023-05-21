@@ -148,6 +148,11 @@ int main(int argc, char *argv[]) {
         path_add(min_p, START_VERTEX, g);
         path_print(min_p, outputFile, g);
     }
+
+    graph_free(&g);
+    path_free(&p);
+    path_free(&min_p);
+
     // closing files if necessary
     if (inputFile != stdin) {
         fclose(inputFile);

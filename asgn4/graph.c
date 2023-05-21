@@ -31,6 +31,11 @@ Graph *graph_create(uint32_t vertices, bool directed) {
 void graph_free(Graph **gp) {
     Graph *g = *gp;
     free(g->visited);
+
+    for (uint32_t i = 0; i < g->vertices; ++i) {
+        free(g->names[i]);
+    }
+
     free(g->names);
     for (uint32_t i = 0; i < g->vertices; ++i) {
         free(g->weights[i]);
