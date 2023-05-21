@@ -123,9 +123,28 @@ int main(int argc, char *argv[]) {
             directed = true;
             //printf("graph is now directed\n");
             break;
-        case 'h': printf("put a help here"); break;
+        case 'h':
+            printf("Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
+                   "the cities and edges\n             of a graph. If not specified, the default "
+                   "input should be\n             set as stdin.\n\n-o outfile   Specify the output "
+                   "file path to print to. If not specified,\n             the default output "
+                   "should be set as stdout.\n\n-d           Specifies the graph to be "
+                   "directed.\n\n-h           Prints out a help message describing the purpose of "
+                   "the\n             graph and the command-line options it accepts, exiting the\n "
+                   "            program afterwards.\n");
+            exit(-1);
+            break;
 
-        default: printf("put a help here");
+        default:
+            printf("Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
+                   "the cities and edges\n             of a graph. If not specified, the default "
+                   "input should be\n             set as stdin.\n\n\n-o outfile   Specify the "
+                   "output file path to print to. If not specified,\n             the default "
+                   "output should be set as stdout.\n-d           Specifies the graph to be "
+                   "directed.\n\n-h           Prints out a help message describing the purpose of "
+                   "the\n             graph and the command-line options it accepts, exiting the\n "
+                   "            program afterwards.\n");
+            exit(-1);
         }
     }
     // printf("before graph from file\n");
