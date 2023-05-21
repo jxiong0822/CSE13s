@@ -107,6 +107,7 @@ int main(int argc, char *argv[]) {
     FILE *inputFile = stdin;
     FILE *outputFile = stdout;
     bool directed = false;
+    opterr = 0;
 
     while ((ch = getopt(argc, argv, "i:o:dh")) != -1) {
         switch (ch) {
@@ -124,7 +125,7 @@ int main(int argc, char *argv[]) {
             //printf("graph is now directed\n");
             break;
         case 'h':
-            fprintf(stderr,
+            fprintf(stdout,
                 "Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
                 "the cities and edges\n             of a graph. If not specified, the default "
                 "input should be\n             set as stdin.\n\n-o outfile   Specify the output "
@@ -135,17 +136,9 @@ int main(int argc, char *argv[]) {
                 "            program afterwards.\n");
             exit(-1);
             break;
-
+        case '?': fprintf(stderr, "tsp: unknown or poorly formatted option\n"); exit(-1);
         default:
-            fprintf(stderr,
-                "Usage: tsp [options]\n\n-i infile    Specify the input file path containing "
-                "the cities and edges\n             of a graph. If not specified, the default "
-                "input should be\n             set as stdin.\n\n\n-o outfile   Specify the "
-                "output file path to print to. If not specified,\n             the default "
-                "output should be set as stdout.\n-d           Specifies the graph to be "
-                "directed.\n\n-h           Prints out a help message describing the purpose of "
-                "the\n             graph and the command-line options it accepts, exiting the\n "
-                "            program afterwards.\n");
+            //fprintf(stderr,"tsp: unknown or poorly formatted option -%d\n",ch);
             exit(-1);
         }
     }
