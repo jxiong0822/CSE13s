@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
 
     //print minimum path found
     if (min == UINT32_MAX) {
-        printf("No path found! Alissa is lost!\n");
+        fprintf(outputFile, "No path found! Alissa is lost!\n");
     } else {
         path_add(min_p, START_VERTEX, g);
         path_print(min_p, outputFile, g);

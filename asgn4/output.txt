@@ -1,3 +1,4 @@
+Alissa starts at:
 Santa Cruz
 Ventura County Line
 Pacific Palisades
@@ -12,3 +13,4 @@ Swami's
 Del Mar
 La Jolla
 Santa Cruz
+Total Distance: 965
