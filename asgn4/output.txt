@@ -1,16 +1,12 @@
 Alissa starts at:
-Santa Cruz
-Ventura County Line
-Pacific Palisades
-Manhattan
-Redondo Beach, L.A.
-Haggerty's
-Sunset
-Doheny
-Trestles
-San Onofre
-Swami's
-Del Mar
-La Jolla
-Santa Cruz
-Total Distance: 965
+v1
+v5
+v6
+v2
+v7
+v3
+v8
+v4
+v9
+v1
+Total Distance: 154
