@@ -136,7 +136,9 @@ int main(int argc, char *argv[]) {
                 "            program afterwards.\n");
             exit(-1);
             break;
-        case '?': fprintf(stderr, "tsp: unknown or poorly formatted option\n"); exit(-1);
+        case '?':
+            fprintf(stderr, "tsp: unknown or poorly formatted option -%c\n", optopt);
+            exit(-1);
         default:
             //fprintf(stderr,"tsp: unknown or poorly formatted option -%d\n",ch);
             exit(-1);
