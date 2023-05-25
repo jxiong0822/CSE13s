@@ -26,7 +26,7 @@ EXECBIN = colorb
 OBJS=\
     io.o \
     bmp.o \
-    colorb.c \
+    colorb.o \
 #	iotest.o \
 
 
