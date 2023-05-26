@@ -32,6 +32,8 @@ void bmp_write(const BMP *bmp, Buffer *buf) {
     int32_t bitmap_offset = file_header_size + bitmap_header_size + palette_size;
     int32_t file_size = bitmap_offset + image_size;
 
+    //printf("BMP write Rounded width is %u\n", rounded_width);
+
     write_uint8(buf, 'B');
     write_uint8(buf, 'M');
     write_uint32(buf, file_size);
@@ -50,7 +52,7 @@ void bmp_write(const BMP *bmp, Buffer *buf) {
     write_uint32(buf, num_colors);
     write_uint32(buf, num_colors);
 
-    for (int i = 0; i <= (num_colors - 1); i++) {
+    for (int i = 0; i < num_colors; i++) {
         write_uint8(buf, bmp->palette[i].blue);
         write_uint8(buf, bmp->palette[i].green);
         write_uint8(buf, bmp->palette[i].red);
@@ -83,8 +85,8 @@ BMP *bmp_create(Buffer *buf) {
     uint8_t type1 = 0, type2 = 0;
     uint16_t bits_per_pixel = 0;
     uint32_t bitmap_header_size = 0, compression = 0, colors_used = 0;
-    uint32_t width;
-    uint32_t height;
+    uint32_t width = 0;
+    uint32_t height = 0;
 
     //printf("this ran before all the reads\n");
     read_uint8(buf, &type1);
@@ -135,6 +137,7 @@ BMP *bmp_create(Buffer *buf) {
     }
     // Each row must have a multiple of 4 pixels. Round up to next multiple of 4.
     uint32_t rounded_width = (bmp->width + 3) & ~3;
+    //printf("BMP create Rounded width is %u\n", rounded_width);
     // Allocate pixel array
     bmp->a = calloc(rounded_width, sizeof(bmp->a[0]));
 
@@ -160,7 +163,7 @@ void bmp_free(BMP **bmp) {
 
     uint32_t rounded_width = ((*bmp)->width + 3) & ~3;
 
-    for (uint32_t i = 0; i <= (rounded_width - 1); i++) {
+    for (uint32_t i = 0; i < rounded_width; i++) {
         //printf("hey there\n");
         free((*bmp)->a[i]);
     }

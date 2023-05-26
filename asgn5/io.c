@@ -51,6 +51,27 @@ Buffer *write_open(const char *filename) {
 void write_close(Buffer **pbuf) {
     Buffer *b = *pbuf;
 
+    if (b->offset > 0) {
+        uint8_t *start = b->a;
+        int num_bytes = b->offset;
+
+        do {
+            ssize_t rc = write(b->fd, start, num_bytes);
+            if (rc < 0) {
+                fprintf(stderr, "Error writing buffer to file\n");
+                return;
+            }
+            if (rc == 0) {
+                // Handle the case where no bytes were written
+                fprintf(stderr, "Error: no bytes written\n");
+                return;
+            }
+            start += rc;
+            num_bytes -= rc;
+        } while (num_bytes > 0);
+        b->offset = 0;
+    }
+
     // Close the file
     if (close(b->fd) < 0) {
         fprintf(stderr, "Error closing file\n");

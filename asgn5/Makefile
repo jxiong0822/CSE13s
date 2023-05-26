@@ -27,7 +27,7 @@ OBJS=\
     io.o \
     bmp.o \
     colorb.o \
-#	iotest.o \
+#    iotest.o \
 
 
 .PHONY: all debug release clean
