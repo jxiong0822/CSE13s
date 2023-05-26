@@ -47,8 +47,8 @@ void bmp_write(const BMP *bmp, Buffer *buf) {
     write_uint16(buf, 8);
     write_uint32(buf, 0);
     write_uint32(buf, image_size);
-    write_uint32(buf, 2385);
-    write_uint32(buf, 2385);
+    write_uint32(buf, 2835);
+    write_uint32(buf, 2835);
     write_uint32(buf, num_colors);
     write_uint32(buf, num_colors);
 

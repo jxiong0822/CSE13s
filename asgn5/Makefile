@@ -23,22 +23,30 @@ LDFLAGS=-lm
 
 EXECBIN = colorb
 
+EXECBIN2 = iotest
+
 OBJS=\
     io.o \
     bmp.o \
     colorb.o \
-#    iotest.o \
+    
+OBJS2=\
+    io.o \
+    iotest.o \
 
 
 .PHONY: all debug release clean
 
 all: debug
 
-debug: $(EXECBIN)
+debug: $(EXECBIN) $(EXECBIN2)
 
-release: $(EXECBIN)
+release: $(EXECBIN) $(EXECBIN2)
 
 $(EXECBIN): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+	
+$(EXECBIN2): $(OBJS2)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o : %.c
@@ -46,6 +54,7 @@ $(EXECBIN): $(OBJS)
 
 clean:
 	rm -f $(EXECBIN) $(OBJS)
+	rm -f $(EXECBIN2) $(OBJS2)
 
 format:
 	clang-format -i --style=file *.[ch]
