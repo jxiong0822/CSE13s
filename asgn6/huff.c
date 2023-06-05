@@ -17,14 +17,14 @@ uint64_t fill_histogram(Buffer *inbuf, double *histogram) {
     uint8_t byte;
     while (read_uint8(inbuf, &byte)) {
         ++histogram[byte];
-        printf("%d\n", byte);
+        //printf("%d\n", byte);
         ++filesize;
     }
 
     ++histogram[0x00];
     ++histogram[0xff];
 
-    printf("filesize is %u\n", filesize);
+    //printf("filesize is %u\n", filesize);
     return filesize;
 }
 
@@ -83,8 +83,8 @@ Node *create_tree(double *histogram, uint16_t *num_leaves) {
     Node *papaNode;
     //--(*num_leaves);
 
-    printf("printing priority queue:\n");
-    pq_print(pq);
+    //printf("printing priority queue:\n");
+    //pq_print(pq);
 
     dequeue(pq, &papaNode);
     count_leaves(papaNode, num_leaves);

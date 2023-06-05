@@ -77,6 +77,7 @@ clean:
 	rm -f $(PQTESTBIN) $(PQOBJS)
 	rm -f $(NODETESTBIN) $(NODEOBJS)
 	rm -f $(BWTESTBIN) $(BWOBJS)
+	rm -f $(HUFFTESTBIN) $(HUFFOBJS)
 
 format:
 	clang-format -i --style=file *.[ch]
