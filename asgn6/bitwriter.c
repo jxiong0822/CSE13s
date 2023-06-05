@@ -76,22 +76,22 @@ void bit_write_bit(BitWriter *buf, uint8_t x) {
 }
 
 void bit_write_uint8(BitWriter *buf, uint8_t x) {
-    for (int i = 0; i < 8; i++) {
-        uint8_t bit = (x >> i) & 1;
+    for (uint8_t i = 0; i < 8; i++) {
+        uint8_t bit = (x >> i);
         bit_write_bit(buf, bit);
     }
 }
 
 void bit_write_uint16(BitWriter *buf, uint16_t x) {
-    for (int i = 0; i < 16; i++) {
-        uint8_t bit = (x >> i) & 1;
+    for (uint8_t i = 0; i < 16; i++) {
+        uint8_t bit = (x >> i);
         bit_write_bit(buf, bit);
     }
 }
 
 void bit_write_uint32(BitWriter *buf, uint32_t x) {
-    for (int i = 0; i < 32; i++) {
-        uint8_t bit = (x >> i) & 1;
+    for (uint8_t i = 0; i < 32; i++) {
+        uint8_t bit = (x >> i);
         bit_write_bit(buf, bit);
     }
 }

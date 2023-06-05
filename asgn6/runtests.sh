@@ -23,7 +23,7 @@
 # This construction is repeated for the ./dehuff command, which reads a
 # .huff file and makes a .dehuff file.
 
-for x in files/*.txt; do
+for x in temp/*.txt; do
   ./huff -i $x -o ${x%txt}huff
   if [ $? -ne 0 ];
   then

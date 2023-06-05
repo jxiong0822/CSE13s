@@ -83,6 +83,7 @@ bool dequeue(PriorityQueue *q, Node **tree) {
         q->list = q->list->next;
         *tree = e->tree;
         free(e);
+        e = NULL;
         return true;
     }
 }

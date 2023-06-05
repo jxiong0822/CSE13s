@@ -10,14 +10,12 @@
 #include <stdlib.h>
 
 uint64_t fill_histogram(Buffer *inbuf, double *histogram) {
-    //memset(histogram, 0, 256 * sizeof(double));
 
-    uint8_t filesize = 0;
+    uint64_t filesize = 0;
 
     uint8_t byte;
     while (read_uint8(inbuf, &byte)) {
         ++histogram[byte];
-        //printf("%d\n", byte);
         ++filesize;
     }
 
@@ -62,9 +60,6 @@ Node *create_tree(double *histogram, uint16_t *num_leaves) {
             enqueue(pq, node);
         }
     }
-
-    //printf("printing priority queue:\n");
-    //pq_print(pq);
 
     while (!(pq_size_is_1(pq)) && !(pq_is_empty(pq))) {
         Node *left, *right;
@@ -120,12 +115,6 @@ void fill_code_table(Code *code_table, Node *node, uint64_t code, uint8_t code_l
         /* Leaf node: store the Huffman Code. */
         code_table[node->symbol].code = code;
         code_table[node->symbol].code_length = code_length;
-
-        /*
-	printf("symbol is %c\n",node->symbol);
-	printf("code is %lu\n", code);
-	printf("code length is %hhu\n", code_length);
-	*/
     }
 }
 
@@ -164,18 +153,24 @@ void huff_compress_file(BitWriter *outbuf, Buffer *inbuf, uint32_t filesize, uin
         //char letter = byte;
         //printf("Byte: %c, Code: %lx, Code Length: %hhu\n", letter, code, code_length);
 
-        for (uint8_t i = 0; i < code_length; i++) {
+        //printf("Symbol: %c | Code: ", byte);
+
+        for (uint64_t i = 0; i < code_length; i++) {
             bit_write_bit(outbuf, code & 1);
+            //printf("%lu", code & 1);
             code >>= 1;
         }
+        //printf("\n");
     }
-    //bit_write_close(&outbuf);
+    //printf("Filesize is %u, num_leaves is %u", filesize, num_leaves);
+
+    bit_write_close(&outbuf);
 }
 
 int main(int argc, char *argv[]) {
     int ch;
     Buffer *inputFile = NULL;
-    Buffer *infile = NULL;
+    char *infile = NULL;
     BitWriter *outputFile = NULL;
     bool igiven = false;
     bool ogiven = false;
@@ -187,7 +182,7 @@ int main(int argc, char *argv[]) {
         case 'i':
             //printf("Input file: \"%s\"\n", optarg);
             inputFile = read_open(optarg);
-            infile = read_open(optarg);
+            infile = optarg;
             //printf("image opened with read\n");
             igiven = true;
             break;
@@ -263,7 +258,7 @@ int main(int argc, char *argv[]) {
         //step 4
         read_close(&inputFile);
         //read_open(inputFile);
-        inputFile = infile;
+        inputFile = read_open(infile);
         //printf("Step 4 completed\n");
 
         //step 5
@@ -273,7 +268,6 @@ int main(int argc, char *argv[]) {
         free(histogram);
         free(code_table);
         free_tree(code_tree);
-        bit_write_close(&outputFile);
         read_close(&inputFile);
     }
 }
